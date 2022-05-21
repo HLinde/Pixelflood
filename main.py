@@ -1,5 +1,6 @@
 import socket
 from PIL import Image
+import sys
 
 
 HOST = "flood.schenklflut.de"
@@ -10,7 +11,7 @@ offsety = 800
 
 def main():
 
-    imagename = "uc.png" # Adjust this to the name of the iamge
+    imagename = str(sys.argv[1]) # Adjust this to the name of the iamge
 
 
 
