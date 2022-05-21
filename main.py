@@ -34,7 +34,7 @@ def main():
 
     #Parse image into more convenient data type
 
-    pixelarray = [[0] * y] * x
+    pixelarray = [[0] * y for _ in range(x)]
 
 
     for i in range(x):
@@ -50,10 +50,10 @@ def main():
         for i in range(x):
             for j in range(y):
 
-                print(pixelarray[i][j])
+                #print(pixelarray[i][j])
 
-                sock.send(("PX " + str(i + 50) + " " + str(j) + " " + str(pixelarray[i][j]) + "\n").encode())
-                print("PX " + str(i + 1880) + " " + str(j) + " " + str(pixelarray[i][j]))
+                sock.send(("PX " + str(i) + " " + str(j) + " " + str(pixelarray[i][j]) + "\n").encode())
+                print("PX " + str(i) + " " + str(j) + " " + str(pixelarray[i][j]))
 
     sock.close()
 
