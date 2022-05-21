@@ -2,12 +2,17 @@ import socket
 from PIL import Image
 
 
+HOST = "flood.schenklflut.de"
+PORT = 1234
+offsetx = 1000
+offsety = 800
+
+
 def main():
 
     imagename = "uc.png" # Adjust this to the name of the iamge
 
-    HOST = "flood.schenklflut.de"
-    PORT = 1234
+
 
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -50,10 +55,9 @@ def main():
         for i in range(x):
             for j in range(y):
 
-                #print(pixelarray[i][j])
-
-                sock.send(("PX " + str(i) + " " + str(j) + " " + str(pixelarray[i][j]) + "\n").encode())
-                print("PX " + str(i) + " " + str(j) + " " + str(pixelarray[i][j]))
+                sendbuffer = "PX " + str(i+offsetx) + " " + str(j+offsety) + " " + str(pixelarray[i][j]) + "\n"
+                sock.send(sendbuffer.encode())
+                print(sendbuffer)
 
     sock.close()
 
