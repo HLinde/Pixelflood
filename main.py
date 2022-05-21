@@ -4,7 +4,7 @@ from PIL import Image
 
 def main():
 
-    imagename = "r37sjR-ohjo.jpg"
+    imagename = "uc.png" # Adjust this to the name of the iamge
 
     HOST = "flood.schenklflut.de"
     PORT = 1234
@@ -32,15 +32,28 @@ def main():
     print(y)
     #print(pix[500, 500])
 
-    for x in range(x):
-        for y in range(y):
+    #Parse image into more convenient data type
 
-            print(pix[x, y])
-            r, g, b = pix[x, y]
-            #print("PX " + str(x) + " " + str(y)+ " " + str(format(r, 'x')) + str(format(g, 'x')) + str(format(b, 'x')))
-            shittosend = "PX " + str(x) + " " + str(y) + " " + str(format(r, 'x')) + str(format(g, 'x')) + str(format(b, 'x'))
-            sock.send(shittosend.encode())
+    pixelarray = [[0] * y] * x
 
+
+    for i in range(x):
+        for j in range(y):
+
+            r, g, b, t = pix[i, j]
+            pixelarray[i][j] = '{:02x}{:02x}{:02x}'.format(r, g, b)
+
+    #Do the actual dump to the server
+
+    while True:
+
+        for i in range(x):
+            for j in range(y):
+
+                print(pixelarray[i][j])
+
+                sock.send(("PX " + str(i + 50) + " " + str(j) + " " + str(pixelarray[i][j]) + "\n").encode())
+                print("PX " + str(i + 1880) + " " + str(j) + " " + str(pixelarray[i][j]))
 
     sock.close()
 
