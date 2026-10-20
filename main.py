@@ -14,8 +14,9 @@ if no_gamepad := False:
     def get_gamepad():
         return []
 else:
-    from inputs import get_gamepad
-
+    from inputs import DeviceManager
+    devices = DeviceManager()
+    gamepad = devices.gamepads[0]
 
 class Figurine():
     def __init__(self, image_path, initial_position=(0, 0, 0), phi_offset=0):
